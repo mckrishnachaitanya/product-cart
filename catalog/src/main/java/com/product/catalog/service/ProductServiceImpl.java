@@ -1,6 +1,7 @@
 package com.product.catalog.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
     public List < Product > getAllProduct() {
-		//return null;
        return this.productRepository.findAll();
     }
 
@@ -27,20 +27,18 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product updateProduct(Product product) {
-		// TODO Auto-generated method stub
-		return null;
+		return productRepository.save(product);
 	}
 
 	@Override
 	public Product getProductById(long productId) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Product> product = productRepository.findById(productId);
+		return product.isEmpty() ? new Product() : product.get();
 	}
 
 	@Override
 	public void deleteProduct(long id) {
-		// TODO Auto-generated method stub
-		
+		productRepository.deleteById(id);
 	}
 
     
