@@ -18,40 +18,35 @@ import com.product.catalog.service.ProductService;
 
 @RestController
 public class ProductCatalogController {
-	
+
 	@Autowired
 	ProductService productService;
-	
+
 	@GetMapping("/products")
 	public ResponseEntity<List<Product>> getAllProducts() {
 		return ResponseEntity.ok().body(productService.getAllProduct());
 	}
-	
+
 	@PostMapping("/products")
 	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
 		return ResponseEntity.ok().body(this.productService.createProduct(product));
 	}
-	
-	/*
-	 * @GetMapping("/products/{id}") public ResponseEntity<Product>
-	 * getProductById(@PathVariable long id) { return
-	 * ResponseEntity.ok().body(productService.getProductById(id)); }
-	 */
-	
+
+	@GetMapping("/products/{id}")
+	public ResponseEntity<Product> getProductById(@PathVariable long id) {
+		return ResponseEntity.ok().body(productService.getProductById(id));
+	}
+
 	@PutMapping("/products/{id}")
 	public ResponseEntity<Product> updateProduct(@PathVariable long id, @RequestBody Product product) {
-		product.setId(id);
+		System.out.println("Modify Product");
 		return ResponseEntity.ok().body(this.productService.updateProduct(product));
 	}
-	
+
 	@DeleteMapping("/products/{id}")
 	public HttpStatus deleteProduct(@PathVariable long id) {
 		this.productService.deleteProduct(id);
 		return HttpStatus.OK;
 	}
-	
-	
-	
-	
 
 }
